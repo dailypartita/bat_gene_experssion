@@ -1,13 +1,13 @@
-#!/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./bin/python
+#!/ldfssz1/ST_INFECTION/P20Z10200N0206_pathogendb/yangkaixin1/software/miniconda/bin/python
 #%% initial import
 import os
 import sys
 import argparse
 import pandas as pd
 
-os.system('conda init bash')
-os.system('source /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./etc/profile.d/conda.sh')
-os.system('conda activate /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./envs/rna-seq')
+# os.system('conda init bash')
+# os.system('source /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./etc/profile.d/conda.sh')
+# os.system('conda activate /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./envs/rna-seq')
 
 def file_finder(_root_dir, _pattern, _result_list):
     # search <file name>._pattern in _root_dir
@@ -48,7 +48,7 @@ def mk_index():
                 reffa = j
             if j[-4:] == '.gtf':
                 _gtf = j
-        print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+        # print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
         os.system('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
     else:
         for _sp in os.listdir(args.db):
@@ -60,7 +60,7 @@ def mk_index():
                         reffa = j
                     if j[-4:] == '.gtf':
                         _gtf = j
-                print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+                # print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
                 os.system('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
     return 
 
@@ -72,7 +72,7 @@ def fliter():
         os.makedirs(filter_path)
     except:
         pass
-    print('fastp -w %s -i %s -I %s --adapter_sequence AAGTCGGAGGCCAAGCGGTCTTAGGAAGACAA --adapter_sequence_r2 AAGTCGGATCGTAGCCATGTCGTTCTGTGAGCCAAGGAGTTG --detect_adapter_for_pe -q 20 -u 20 --length_required 50 -n 2 -y -c -p --disable_trim_poly_g -R %s  -o %s/r1_filted.fq -O %s/r2_filted.fq -h %s/fastp_report.html -j %s/fastp_report.json'%(args.p, args.r1, args.r2, args.sample_name, filter_path, filter_path, filter_path, filter_path ))
+    # print('fastp -w %s -i %s -I %s --adapter_sequence AAGTCGGAGGCCAAGCGGTCTTAGGAAGACAA --adapter_sequence_r2 AAGTCGGATCGTAGCCATGTCGTTCTGTGAGCCAAGGAGTTG --detect_adapter_for_pe -q 20 -u 20 --length_required 50 -n 2 -y -c -p --disable_trim_poly_g -R %s  -o %s/r1_filted.fq -O %s/r2_filted.fq -h %s/fastp_report.html -j %s/fastp_report.json'%(args.p, args.r1, args.r2, args.sample_name, filter_path, filter_path, filter_path, filter_path ))
     os.system('fastp -w %s -i %s -I %s --adapter_sequence AAGTCGGAGGCCAAGCGGTCTTAGGAAGACAA --adapter_sequence_r2 AAGTCGGATCGTAGCCATGTCGTTCTGTGAGCCAAGGAGTTG --detect_adapter_for_pe -q 20 -u 20 --length_required 50 -n 2 -y -c -p --disable_trim_poly_g -R %s  -o %s/r1_filted.fq -O %s/r2_filted.fq -h %s/fastp_report.html -j %s/fastp_report.json'%(args.p, args.r1, args.r2, args.sample_name, filter_path, filter_path, filter_path, filter_path ))
     return filter_path + '/r1_filted.fq', filter_path + '/r2_filted.fq'
 
@@ -85,11 +85,11 @@ def mapping(_fr1, _fr2):
         pass
     _index = args.db + '/' + args.sp + '/hisat2_index'
     sampath = bam_dir + '/' + args.sample_name
-    print('alliging %s ...'%args.sample_name)
-    print('hisat2 -p %s --dta -x %s -1 %s -2 %s -S %s.sam'%(args.p, _index, _fr1, _fr2, sampath))
-    print('samtools view -@ %s -S -b %s.sam > %s.bam'%(args.p, sampath, sampath))
-    print('samtools sort -@ %s %s.bam  %s_sorted'%(args.p, sampath, sampath))
-    print('samtools index -@ %s %s_sorted.bam'%(args.p, sampath))
+    # print('alliging %s ...'%args.sample_name)
+    # print('hisat2 -p %s --dta -x %s -1 %s -2 %s -S %s.sam'%(args.p, _index, _fr1, _fr2, sampath))
+    # print('samtools view -@ %s -S -b %s.sam > %s.bam'%(args.p, sampath, sampath))
+    # print('samtools sort -@ %s %s.bam  %s_sorted'%(args.p, sampath, sampath))
+    # print('samtools index %s_sorted.bam'%sampath)
     os.system('hisat2 -p %s --dta -x %s -1 %s -2 %s -S %s.sam'%(args.p, _index,  _fr1, _fr2, sampath))
     os.system('samtools view -@ %s -S -b %s.sam > %s.bam'%(args.p, sampath, sampath))
     os.system('samtools sort -@ %s %s.bam  %s_sorted'%(args.p, sampath, sampath))
@@ -100,25 +100,19 @@ def mapping(_fr1, _fr2):
 def htseq_count(_bam_path):
     _htc_path = args.o + '/' + args.sample_name
     print('htseq counting...')
-    print('htseq-count -s no -r pos -f bam -n 20 %s %s > %s.htc'%(_bam_path, args.gtf, _htc_path))
+    # print('htseq-count -s no -r pos -f bam -n 20 %s %s > %s.htc'%(_bam_path, args.gtf, _htc_path))
     os.system('htseq-count -s no -r pos -f bam -n 20 %s %s > %s.htc'%(_bam_path, args.gtf, _htc_path))
 
 #%% summary FPKM by samples
 def sum_htc(_htc_root_path):
     _temp, _raw_data = [], []
     _htc_path_list = file_finder(_htc_root_path, 'htc', _temp)
-    for htc in _htc_path_list:
-        _df = pd.read_csv(htc, sep='\t', header=None, index_col = 0, names=['fpkm-%s'%htc.split('/')[-1].split('.')[0]])
-        _raw_data.append(_df[:])
-    _demo = _raw_data[0]
-    for _data in _raw_data:
-        _result = pd.merge(_demo, _data, how='inner', left_index=True, right_index=True)
-    _result.to_csv('%s/merged_htc.csv'%args.o, index_label='gene')
-
+    
+    
 #%%else chunks
 def remove_temp():
     os.system('rm %s/1_filter/%s/*.fq -rf'%(args.tmp, args.sample_name))
-    os.system('rm %s/2_alligment/%s/* -rf'%(args.tmp, args.sample_name))
+    os.system('rm %s/2_alligment/%s/*.sam -rf'%(args.tmp, args.sample_name))
 
 def exp_handel():
     os.system('python %s -h'%sys.argv[0])
@@ -149,7 +143,7 @@ elif args.mode == 'summary':
     if not args.htc_result_path:
         print('parameter <htc_result_path> should be defined.')
         exp_handel()
-    sum_htc(args.o)
+    sum_htc(args.htc_result_path)
     print('%s finish'%args.mode)
 
 else:
