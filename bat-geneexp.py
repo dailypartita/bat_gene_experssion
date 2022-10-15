@@ -1,4 +1,4 @@
-#!/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./bin/python
+#!/home/kaixinyang/software/.conda/anaconda-3-2021./bin/python
 #%% initial import
 import os
 import sys
@@ -6,8 +6,8 @@ import argparse
 import pandas as pd
 
 os.system('conda init bash')
-os.system('source /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./etc/profile.d/conda.sh')
-os.system('conda activate /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/software/.conda/anaconda-3-2021./envs/rna-seq')
+os.system('source /home/kaixinyang/software/.conda/anaconda-3-2021./etc/profile.d/conda.sh')
+os.system('conda activate /home/kaixinyang/software/.conda/anaconda-3-2021./envs/rna-seq')
 
 def file_finder(_root_dir, _pattern, _result_list):
     # search <file name>._pattern in _root_dir
@@ -22,19 +22,19 @@ def file_finder(_root_dir, _pattern, _result_list):
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-mode', help='<build> build hisat2 index to species in -db ||<main> filter & mapping & htseq stat || <summary> make summary for htseq stat result by samples')
-parser.add_argument('-db', help='path of database root', default='/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database')
+parser.add_argument('-db', help='path of database root', default='/home/kaixinyang/projects/AFRICA-GAM/expression/database')
 parser.add_argument('-sp', help='which species as referance sequence', default='Rousettus_aegyptiacus')
-parser.add_argument('-gtf', help='path of gtf (for which species)', default='/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/Rousettus_aegyptiacus/GCF_014176215.1_mRouAeg1.p_genomic.gtf')
+parser.add_argument('-gtf', help='path of gtf (for which species)', default='/home/kaixinyang/projects/AFRICA-GAM/expression/database/Rousettus_aegyptiacus/GCF_014176215.1_mRouAeg1.p_genomic.gtf')
 parser.add_argument('-sample_name', help='uniq sample name for fq1&2 input')
 parser.add_argument('-r1', help='raw reads1')
 parser.add_argument('-r2', help='raw reads2')
-parser.add_argument('-htc_result_path', help='path of all .htc file root dir', default='/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/output')
-parser.add_argument('-tmp', help='temp file stroge path', default='/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/temp')
-parser.add_argument('-o', help='path to storge merged FPKM <merged.htc>', default='/jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/output')
+parser.add_argument('-htc_result_path', help='path of all .htc file root dir', default='/home/kaixinyang/projects/AFRICA-GAM/expression/output')
+parser.add_argument('-tmp', help='temp file stroge path', default='/home/kaixinyang/projects/AFRICA-GAM/expression/temp')
+parser.add_argument('-o', help='path to storge merged FPKM <merged.htc>', default='/home/kaixinyang/projects/AFRICA-GAM/expression/output')
 parser.add_argument('-p', help='processor to use', default=8)
 args = parser.parse_args()
 
-samtools = '/ldfssz1/ST_INFECTION/P20Z10200N0206_pathogendb/yangkaixin1/software/miniconda/bin/samtools'
+samtools = '/home/kaixinyang/software/miniconda/bin/samtools'
 
 #%% make index for each species
 def mk_index():
@@ -50,8 +50,8 @@ def mk_index():
                 reffa = j
             if j[-4:] == '.gtf':
                 _gtf = j
-        print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
-        os.system('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+        print('python /home/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+        os.system('python /home/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
     else:
         for _sp in os.listdir(args.db):
             _sp = os.path.join(args.db, _sp)
@@ -62,8 +62,8 @@ def mk_index():
                         reffa = j
                     if j[-4:] == '.gtf':
                         _gtf = j
-                print('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
-                os.system('python /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+                print('python /home/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
+                os.system('python /home/kaixinyang/projects/AFRICA-GAM/expression/database/shell/makeindex.py -reffa %s -gtf %s -o %s'%(reffa, _gtf, _sp))
     return 
 
 #%% filter and mapping reads(PE) to ref genome
