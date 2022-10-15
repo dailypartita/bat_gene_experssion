@@ -1,1 +1,1 @@
-perl /ldfssz1/ST_INFECTION/share/bin/qsub.v2.pl -b 1 -p 8 -l vf=2G,p=8 -q st.q -P P20Z10200N0206  /jdfssz1/ST_HEALTH/P20Z10200N0206/kaixinyang/projects/AFRICA-GAM/expression/shell/2-work-mapping_each_sample.sh
+perl /share/bin/qsub.v2.pl -b 1 -p 8 -l vf=2G,p=8 -q st.q -P P00123112  /home/kaixinyang/projects/AFRICA-GAM/expression/shell/2-work-mapping_each_sample.sh
